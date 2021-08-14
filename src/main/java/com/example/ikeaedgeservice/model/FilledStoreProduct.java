@@ -12,9 +12,6 @@ public class FilledStoreProduct {
     private int number;
     private List<CategoryProduct> categoryProducts;
 
-    public FilledStoreProduct() {
-    }
-
     public FilledStoreProduct(Store store, List<Product> products) {
         setStoreName(store.getStoreName());
         setProvince(store.getProvince());

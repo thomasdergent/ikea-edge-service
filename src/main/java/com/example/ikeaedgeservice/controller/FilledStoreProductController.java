@@ -1,5 +1,6 @@
 package com.example.ikeaedgeservice.controller;
 
+import com.example.ikeaedgeservice.model.CategoryProduct;
 import com.example.ikeaedgeservice.model.FilledStoreProduct;
 import com.example.ikeaedgeservice.model.Product;
 import com.example.ikeaedgeservice.model.Store;
@@ -27,12 +28,13 @@ public class FilledStoreProductController {
     @Value("${productservice.baseurl}")
     private String productServiceBaseUrl;
 
+    //Get specific product from specific store
     @GetMapping("/store/{storeName}/article/{articleNumber}")
     public FilledStoreProduct getRankingByUserIdAndISBN(@PathVariable String storeName, @PathVariable String articleNumber) {
 
         Store store =
-                restTemplate.getForObject("http://" + storeServiceBaseUrl + "/store/{storeName}",
-                        Store.class, storeName);
+                restTemplate.getForObject("http://" + storeServiceBaseUrl + "/store/" + storeName,
+                        Store.class);
 
         Product product =
                 restTemplate.getForObject("http://" + productServiceBaseUrl + "/store/" + storeName + "/article/" + articleNumber,
@@ -41,36 +43,49 @@ public class FilledStoreProductController {
         return new FilledStoreProduct(store, product);
     }
 
-    @GetMapping("/meubels/category/{category}")
-    public List<FilledStoreProduct> getMeubelsByCategory(@PathVariable String category) {
+//    //Get all products from category
+//    @GetMapping("/category/{category}")
+//    public List<FilledStoreProduct> getMeubelsByCategory(@PathVariable String category) {
+//
+//        List<FilledStoreProduct> returnList = new ArrayList();
+//
+//        ResponseEntity<List<Product>> responseEntityReviews =
+//                restTemplate.exchange("http://" + productServiceBaseUrl + "/products/category/{category}",
+//                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Product>>() {
+//                        }, category);
+//
+//        List<Product> products = responseEntityReviews.getBody();
+//
+//        for (Product product :
+//                products) {
+//            Store store =
+//                    restTemplate.getForObject("http://" + storeServiceBaseUrl + "/store/{storeName}",
+//                            Store.class, product.getStoreName());
+//
+//            returnList.add(new FilledStoreProduct(store, product));
+//        }
+//
+//        return returnList;
+//    }
 
-        List<FilledStoreProduct> returnList = new ArrayList();
-
-        ResponseEntity<List<Product>> responseEntityReviews =
-                restTemplate.exchange("http://" + productServiceBaseUrl + "/products/category/{category}",
-                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Product>>() {
-                        }, category);
-
-        List<Product> products = responseEntityReviews.getBody();
-
-        for (Product product :
-                products) {
-            Store store =
-                    restTemplate.getForObject("http://" + storeServiceBaseUrl + "/store/{storeName}",
-                            Store.class, product.getStoreName());
-
-            returnList.add(new FilledStoreProduct(store, product));
-        }
-
-        return returnList;
-    }
-
-    @GetMapping("test/{storeName}")
+    //Get all products from specific store
+    @GetMapping("/products/store/{storeName}")
     public FilledStoreProduct getProductsByStoreName(@PathVariable String storeName) {
         Store store = restTemplate.getForObject("http://" + storeServiceBaseUrl + "/store/{storeName}", Store.class, storeName);
 
         ResponseEntity<List<Product>> responseEntityProducts = restTemplate.exchange("http://" + productServiceBaseUrl + "/products/{storeName}", HttpMethod.GET, null, new ParameterizedTypeReference<List<Product>>() {
         }, storeName);
+
+        return new FilledStoreProduct(store, responseEntityProducts.getBody());
+    }
+
+    //Get all products from a specific category for a specific store
+    @GetMapping("/store/{storeName}/category/{category}")
+    public FilledStoreProduct testje(@PathVariable String storeName, @PathVariable String category) {
+        Store store = restTemplate.getForObject("http://" + storeServiceBaseUrl + "/store/{storeName}", Store.class, storeName);
+
+        ResponseEntity<List<Product>> responseEntityProducts = restTemplate.exchange("http://" + productServiceBaseUrl + "/store/" + storeName + "/category/{category}", HttpMethod.GET, null, new ParameterizedTypeReference<List<Product>>() {
+        }, category);
 
         return new FilledStoreProduct(store, responseEntityProducts.getBody());
     }
@@ -88,15 +103,15 @@ public class FilledStoreProductController {
 //        return new FilledStoreProduct(store, product);
 //    }
 
-
+    //Post product
     @PostMapping("/product")
     public Product addProduct(@RequestBody Product product) {
 
-        return restTemplate.postForObject("http://" + productServiceBaseUrl + "/product",
+        return restTemplate.postForObject("http://" + productServiceBaseUrl + "/product/" ,
                 product, Product.class);
     }
 
-    //checken voor updaten WERKT OOK!!!!!!
+    //Update specific product from specific store
     @PutMapping("/store/{storeName}/article/{articleNumber}")
     public Product updateProduct(@PathVariable String storeName, @PathVariable String articleNumber, @RequestBody Product updatedProduct) {
 
@@ -150,11 +165,22 @@ public class FilledStoreProductController {
 //        return new FilledStoreProduct(store, retrievedProduct);
 //    }
 
+    //Delete specific product from specific store
     @DeleteMapping("/store/{storeName}/article/{articleNumber}")
     public ResponseEntity deleteProduct(@PathVariable String storeName, @PathVariable String articleNumber) {
 
         restTemplate.delete("http://" + productServiceBaseUrl + "/product/store/" + storeName + "/article/" + articleNumber);
 
         return ResponseEntity.ok().build();
+    }
+
+    //Get all stores
+    @GetMapping("/stores")
+    public List<Store> getStores() {
+
+        ResponseEntity<List<Store>> responseEntityProducts = restTemplate.exchange("http://" + storeServiceBaseUrl + "/stores", HttpMethod.GET, null, new ParameterizedTypeReference<List<Store>>() {
+        });
+
+        return responseEntityProducts.getBody();
     }
 }
