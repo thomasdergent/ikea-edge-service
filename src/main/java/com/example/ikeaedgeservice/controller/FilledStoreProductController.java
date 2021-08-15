@@ -107,7 +107,7 @@ public class FilledStoreProductController {
     @PostMapping("/product")
     public Product addProduct(@RequestBody Product product) {
 
-        return restTemplate.postForObject("http://" + productServiceBaseUrl + "/product/" ,
+        return restTemplate.postForObject("http://" + productServiceBaseUrl + "/product",
                 product, Product.class);
     }
 
@@ -169,9 +169,21 @@ public class FilledStoreProductController {
     @DeleteMapping("/store/{storeName}/article/{articleNumber}")
     public ResponseEntity deleteProduct(@PathVariable String storeName, @PathVariable String articleNumber) {
 
-        restTemplate.delete("http://" + productServiceBaseUrl + "/product/store/" + storeName + "/article/" + articleNumber);
+        Product product =
+                restTemplate.getForObject("http://" + productServiceBaseUrl + "/store/" + storeName + "/article/" + articleNumber,
+                        Product.class);
 
-        return ResponseEntity.ok().build();
+        if (product != null) {
+
+            restTemplate.delete("http://" + productServiceBaseUrl + "/product/store/" + storeName + "/article/" + articleNumber);
+
+            return ResponseEntity.ok().build();
+
+        } else {
+
+            return ResponseEntity.notFound().build();
+            
+        }
     }
 
     //Get all stores

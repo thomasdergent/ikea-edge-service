@@ -12,8 +12,9 @@ public class Store {
     public Store() {
     }
 
-    public Store (String storeName, String city, String street, int number) {
+    public Store (String storeName, String province, String city, String street, int number) {
         this.storeName = storeName;
+        this.province = province;
         this.city = city;
         this.street = street;
         this.number = number;
