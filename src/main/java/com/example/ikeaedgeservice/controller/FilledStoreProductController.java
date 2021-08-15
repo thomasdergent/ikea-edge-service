@@ -169,20 +169,14 @@ public class FilledStoreProductController {
     @DeleteMapping("/store/{storeName}/article/{articleNumber}")
     public ResponseEntity deleteProduct(@PathVariable String storeName, @PathVariable String articleNumber) {
 
-        Product product =
-                restTemplate.getForObject("http://" + productServiceBaseUrl + "/store/" + storeName + "/article/" + articleNumber,
-                        Product.class);
-
-        if (product != null) {
+        try {
 
             restTemplate.delete("http://" + productServiceBaseUrl + "/product/store/" + storeName + "/article/" + articleNumber);
 
             return ResponseEntity.ok().build();
+        } catch (Exception e) {
 
-        } else {
-
-            return ResponseEntity.notFound().build();
-            
+            return ResponseEntity.badRequest().build();
         }
     }
 

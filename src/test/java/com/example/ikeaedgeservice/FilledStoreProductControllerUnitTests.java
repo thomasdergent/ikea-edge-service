@@ -203,7 +203,7 @@ public class FilledStoreProductControllerUnitTests {
 
         Product product4Store2 = new Product("IKEA Wilrijk", "Linmon chair", "Bureaustoel", "456abc", true, "Leer", "Spray", "Recycleerbaar", 500, 200.00, "130cm");
 
-        // POST review for Book 1 from User 3
+        //Post product for Store 1 from product 1
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + productServiceBaseUrl + "/product")))
                 .andExpect(method(HttpMethod.POST))
@@ -235,6 +235,7 @@ public class FilledStoreProductControllerUnitTests {
 
         Product updatedProduct1Store1 = new Product("IKEA Hasselt", "Linmon chair", "Bureaustoel", "abc123", true, "Leer", "Spray", "Recycleerbaar", 400, 200.00, "130cm");
 
+        //Update product for Store 1 from product 1
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + productServiceBaseUrl + "/store/IKEA%20Hasselt/article/" + product1.getArticleNumber())))
                 .andExpect(method(HttpMethod.PUT))
@@ -265,17 +266,32 @@ public class FilledStoreProductControllerUnitTests {
     @Test
     public void whenDeleteProductFromStore_thenStatusOK() throws Exception {
 
+        //Delete product for Store 1 from product 1
         mockServer.expect(ExpectedCount.once(),
-                requestTo(new URI("http://" + productServiceBaseUrl + "/product/store/IKEA%20Hasselt/article/999")))
+                requestTo(new URI("http://" + productServiceBaseUrl + "/product/store/IKEA%20Hasselt/article/" + product1.getArticleNumber())))
                 .andExpect(method(HttpMethod.DELETE))
                 .andRespond(withStatus(HttpStatus.OK)
                 );
-
-        mockMvc.perform(delete("/store/IKEA Hasselt/article/999")
+        
+        mockMvc.perform(delete("/store/IKEA Hasselt/article/" + product1.getArticleNumber())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void whenDeleteProductFromStore_thenStatusNotFound() throws Exception {
+
+        //Delete product for Store 1 from badrequest
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + productServiceBaseUrl + "/product/store/IKEA%20Hasselt/article/badrequest")))
+                .andExpect(method(HttpMethod.DELETE))
+                .andRespond(withStatus(HttpStatus.BAD_REQUEST)
+                );
+
+        mockMvc.perform(delete("/store/IKEA Hasselt/article/badrequest")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
 
     @Test
     public void whenGetStores_thenReturnStoresJson() throws Exception {
