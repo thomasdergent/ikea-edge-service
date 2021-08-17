@@ -97,7 +97,7 @@ public class FilledStoreProductController {
 //
 //        Store store =
 //                restTemplate.getForObject("http://" + storeServiceBaseUrl + "/store/{storeName}",
-//                        Store.class, storeName);
+//                        Store.class, storeName)
 //
 //
 //        return new FilledStoreProduct(store, product);
