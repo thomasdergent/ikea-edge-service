@@ -65,7 +65,7 @@ public class FilledStoreProductControllerUnitTests {
     }
 
     @Test
-    public void whenGetProductByStoreName_thenReturnFilledStoreProductJson() throws Exception {
+    public void whenGetProductByStoreNameAndArticleNumber_thenReturnFilledStoreProductJson() throws Exception {
 
         //Get Store 1 info
         mockServer.expect(ExpectedCount.once(),
@@ -272,7 +272,7 @@ public class FilledStoreProductControllerUnitTests {
                 .andExpect(method(HttpMethod.DELETE))
                 .andRespond(withStatus(HttpStatus.OK)
                 );
-        
+
         mockMvc.perform(delete("/store/IKEA Hasselt/article/" + product1.getArticleNumber())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
