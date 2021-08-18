@@ -37,9 +37,19 @@ Hier vind je een overzicht van alle endpoints aanwezig in de ikea-edge-service:
 
 - GET /store/{storeName}/category/{category}
 
+![getproductbystorenameandcategory](https://user-images.githubusercontent.com/73995291/129959208-6d09994d-571f-4f1a-85fd-a9596b5afa36.jpg)
+
 - GET /stores
 
+![getstores](https://user-images.githubusercontent.com/73995291/129959245-deae2209-1d3d-49c1-857e-baf17c1addeb.jpg)
+
+- POST /product
+
+![post](https://user-images.githubusercontent.com/73995291/129959352-b3f54c06-6315-4bdc-9833-6ee68cbcd7a1.jpg)
+
 - PUT /store/{storeName}/article/{articleNumber}
+
+![put](https://user-images.githubusercontent.com/73995291/129959270-f0e2680b-4304-486b-a37d-009ccf02df7e.jpg)
 
 - DELETE /store/{storeName}/article/{articleNumber}
 
