@@ -42,3 +42,6 @@ Hier vind je een overzicht van alle endpoints aanwezig in de ikea-edge-service:
 - PUT /store/{storeName}/article/{articleNumber}
 
 - DELETE /store/{storeName}/article/{articleNumber}
+
+![delete](https://user-images.githubusercontent.com/73995291/129958871-dee71fc7-4074-4ea5-8325-3c4b8f751fc2.jpg)
+
