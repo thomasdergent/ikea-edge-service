@@ -2,38 +2,26 @@ package com.example.ikeaedgeservice.model;
 
 public class Store {
 
-    private int id;
+    private String id;
     private String storeName;
-    private String province;
-    private String city;
-    private String street;
-    private int number;
+    private String articleNumber;
+    private int stock;
 
     public Store() {
     }
 
-    public Store (String storeName, String province, String city, String street, int number) {
+    public Store(String storeName, String articleNumber, int stock) {
         this.storeName = storeName;
-        this.province = province;
-        this.city = city;
-        this.street = street;
-        this.number = number;
+        this.articleNumber = articleNumber;
+        this.stock = stock;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
     }
 
     public String getStoreName() {
@@ -44,28 +32,20 @@ public class Store {
         this.storeName = storeName;
     }
 
-    public String getCity() {
-        return city;
+    public String getArticleNumber() {
+        return articleNumber;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setArticleNumber(String articleNumber) {
+        this.articleNumber = articleNumber;
     }
 
-    public String getStreet() {
-        return street;
+    public int getStock() {
+        return stock;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 }
 

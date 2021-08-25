@@ -2,8 +2,7 @@ package com.example.ikeaedgeservice.model;
 
 public class Product {
 
-    private String id;
-    private String storeName;
+    private int id;
     private String name;
     private String category;
     private String description;
@@ -13,15 +12,13 @@ public class Product {
     private String material;
     private String maintenance;
     private String environment;
-    private int stock;
     private double price;
     private String size;
 
     public Product() {
     }
 
-    public Product(String storeName, String name, String category, String description, String image, String articleNumber, Boolean delivery, String material, String maintenance, String environment, int stock, double price, String size) {
-        this.storeName = storeName;
+    public Product(String name, String category, String description, String image, String articleNumber, Boolean delivery, String material, String maintenance, String environment, double price, String size) {
         this.name = name;
         this.category = category;
         this.description = description;
@@ -31,25 +28,16 @@ public class Product {
         this.material = material;
         this.maintenance = maintenance;
         this.environment = environment;
-        this.stock =stock;
         this.price = price;
         this.size = size;
     }
 
-    public String getId(){
+    public int getId(){
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
-    }
-
-    public String getStoreName(){
-        return storeName;
-    }
-
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
     }
 
     public String getName(){
@@ -120,14 +108,6 @@ public class Product {
 
     public void setEnvironment(String environment) {
         this.environment = environment;
-    }
-
-    public int getStock(){
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
     }
 
     public double getPrice(){
