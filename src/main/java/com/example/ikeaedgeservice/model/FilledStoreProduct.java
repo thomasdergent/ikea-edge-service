@@ -20,7 +20,7 @@ public class FilledStoreProduct {
         setNumber(store.getNumber());
         categoryProducts = new ArrayList<>();
         products.forEach(product -> {
-            categoryProducts.add(new CategoryProduct(product.getName(), product.getCategory(), product.getArticleNumber(), product.getDelivery(), product.getMaterial(), product.getMaintenance(), product.getEnvironment(), product.getStock(), product.getPrice(), product.getSize()));
+            categoryProducts.add(new CategoryProduct(product.getName(), product.getCategory(), product.getDescription(), product.getImage(), product.getArticleNumber(), product.getDelivery(), product.getMaterial(), product.getMaintenance(), product.getEnvironment(), product.getStock(), product.getPrice(), product.getSize()));
         });
 
         setCategoryProducts(categoryProducts);
@@ -33,7 +33,7 @@ public class FilledStoreProduct {
         setStreet(store.getStreet());
         setNumber(store.getNumber());
         categoryProducts = new ArrayList<>();
-        categoryProducts.add(new CategoryProduct(product.getName(), product.getCategory(), product.getArticleNumber(), product.getDelivery(), product.getMaterial(), product.getMaintenance(), product.getEnvironment(), product.getStock(), product.getPrice(), product.getSize()));
+        categoryProducts.add(new CategoryProduct(product.getName(), product.getCategory(), product.getDescription(), product.getImage(), product.getArticleNumber(), product.getDelivery(), product.getMaterial(), product.getMaintenance(), product.getEnvironment(), product.getStock(), product.getPrice(), product.getSize()));
         setCategoryProducts(categoryProducts);
     }
 

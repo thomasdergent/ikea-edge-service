@@ -29,8 +29,9 @@ public class FilledStoreProductController {
     private String productServiceBaseUrl;
 
     //Get specific product from specific store
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/store/{storeName}/article/{articleNumber}")
-    public FilledStoreProduct getRankingByUserIdAndISBN(@PathVariable String storeName, @PathVariable String articleNumber) {
+    public FilledStoreProduct getProductByStoreNameAndArticleNumber(@PathVariable String storeName, @PathVariable String articleNumber) {
 
         Store store =
                 restTemplate.getForObject("http://" + storeServiceBaseUrl + "/store/" + storeName,
@@ -69,6 +70,7 @@ public class FilledStoreProductController {
 //    }
 
     //Get all products from specific store
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/products/store/{storeName}")
     public FilledStoreProduct getProductsByStoreName(@PathVariable String storeName) {
         Store store = restTemplate.getForObject("http://" + storeServiceBaseUrl + "/store/{storeName}", Store.class, storeName);
@@ -80,8 +82,9 @@ public class FilledStoreProductController {
     }
 
     //Get all products from a specific category for a specific store
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/store/{storeName}/category/{category}")
-    public FilledStoreProduct testje(@PathVariable String storeName, @PathVariable String category) {
+    public FilledStoreProduct getProductsByStoreNameAndCategory(@PathVariable String storeName, @PathVariable String category) {
         Store store = restTemplate.getForObject("http://" + storeServiceBaseUrl + "/store/{storeName}", Store.class, storeName);
 
         ResponseEntity<List<Product>> responseEntityProducts = restTemplate.exchange("http://" + productServiceBaseUrl + "/store/" + storeName + "/category/{category}", HttpMethod.GET, null, new ParameterizedTypeReference<List<Product>>() {
@@ -105,6 +108,7 @@ public class FilledStoreProductController {
 
     //Post product
     @PostMapping("/product")
+    @CrossOrigin(origins = "http://localhost:4200")
     public Product addProduct(@RequestBody Product product) {
 
         return restTemplate.postForObject("http://" + productServiceBaseUrl + "/product",
@@ -112,6 +116,7 @@ public class FilledStoreProductController {
     }
 
     //Update specific product from specific store
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/store/{storeName}/article/{articleNumber}")
     public Product updateProduct(@PathVariable String storeName, @PathVariable String articleNumber, @RequestBody Product updatedProduct) {
 
@@ -166,6 +171,7 @@ public class FilledStoreProductController {
 //    }
 
     //Delete specific product from specific store
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/store/{storeName}/article/{articleNumber}")
     public ResponseEntity deleteProduct(@PathVariable String storeName, @PathVariable String articleNumber) {
 
@@ -181,6 +187,7 @@ public class FilledStoreProductController {
     }
 
     //Get all stores
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/stores")
     public List<Store> getStores() {
 

@@ -51,9 +51,9 @@ public class FilledStoreProductControllerUnitTests {
     private Store store1 = new Store("IKEA Hasselt", "Limburg", "Hasselt", "teststraat", 1);
     private Store store2 = new Store("IKEA Wilrijk", "Antwerpen", "Wilrijk", "teststraat", 2);
 
-    private Product product1 = new Product("IKEA Hasselt", "Linmon chair", "Bureaustoel", "abc123", true, "Leer", "Spray", "Recycleerbaar", 500, 200.00, "130cm");
-    private Product product2 = new Product("IKEA Hasselt", "Linmon desk", "Bureau", "abc456", true, "Hout", "Vochtbestendig", "Recycleerbaar", 600, 75.00, "140cmx80cm");
-    private Product product3 = new Product("IKEA Wilrijk", "Linmon desk", "Bureau", "123abc", true, "Hout", "Vochtbestendig", "Recycleerbaar", 600, 75.00, "140cmx80cm");
+    private Product product1 = new Product("IKEA Hasselt", "Linmon chair", "Bureaustoel","omschrijving", "afbeelding", "abc123", true, "Leer", "Spray", "Recycleerbaar", 500, 200.00, "130cm");
+    private Product product2 = new Product("IKEA Hasselt", "Linmon desk", "Bureau","omschrijving", "afbeelding", "abc456", true, "Hout", "Vochtbestendig", "Recycleerbaar", 600, 75.00, "140cmx80cm");
+    private Product product3 = new Product("IKEA Wilrijk", "Linmon desk", "Bureau","omschrijving", "afbeelding", "123abc", true, "Hout", "Vochtbestendig", "Recycleerbaar", 600, 75.00, "140cmx80cm");
 
     private List<Product> allProductsForStoreCategoryBureau = Arrays.asList(product3);
     private List<Product> allProductsForStore1 = Arrays.asList(product1, product2);;
@@ -95,6 +95,8 @@ public class FilledStoreProductControllerUnitTests {
                 .andExpect(jsonPath("$.number", is(1)))
                 .andExpect(jsonPath("$.categoryProducts[0].name", is("Linmon chair")))
                 .andExpect(jsonPath("$.categoryProducts[0].category", is("Bureaustoel")))
+                .andExpect(jsonPath("$.categoryProducts[0].description", is("omschrijving")))
+                .andExpect(jsonPath("$.categoryProducts[0].image", is("afbeelding")))
                 .andExpect(jsonPath("$.categoryProducts[0].articleNumber", is("abc123")))
                 .andExpect(jsonPath("$.categoryProducts[0].delivery", is(true)))
                 .andExpect(jsonPath("$.categoryProducts[0].material", is("Leer")))
@@ -136,6 +138,8 @@ public class FilledStoreProductControllerUnitTests {
                 .andExpect(jsonPath("$.number", is(1)))
                 .andExpect(jsonPath("$.categoryProducts[0].name", is("Linmon chair")))
                 .andExpect(jsonPath("$.categoryProducts[0].category", is("Bureaustoel")))
+                .andExpect(jsonPath("$.categoryProducts[0].description", is("omschrijving")))
+                .andExpect(jsonPath("$.categoryProducts[0].image", is("afbeelding")))
                 .andExpect(jsonPath("$.categoryProducts[0].articleNumber", is("abc123")))
                 .andExpect(jsonPath("$.categoryProducts[0].delivery", is(true)))
                 .andExpect(jsonPath("$.categoryProducts[0].material", is("Leer")))
@@ -146,6 +150,8 @@ public class FilledStoreProductControllerUnitTests {
                 .andExpect(jsonPath("$.categoryProducts[0].size", is("130cm")))
                 .andExpect(jsonPath("$.categoryProducts[1].name", is("Linmon desk")))
                 .andExpect(jsonPath("$.categoryProducts[1].category", is("Bureau")))
+                .andExpect(jsonPath("$.categoryProducts[1].description", is("omschrijving")))
+                .andExpect(jsonPath("$.categoryProducts[1].image", is("afbeelding")))
                 .andExpect(jsonPath("$.categoryProducts[1].articleNumber", is("abc456")))
                 .andExpect(jsonPath("$.categoryProducts[1].delivery", is(true)))
                 .andExpect(jsonPath("$.categoryProducts[1].material", is("Hout")))
@@ -187,6 +193,8 @@ public class FilledStoreProductControllerUnitTests {
                 .andExpect(jsonPath("$.number", is(2)))
                 .andExpect(jsonPath("$.categoryProducts[0].name", is("Linmon desk")))
                 .andExpect(jsonPath("$.categoryProducts[0].category", is("Bureau")))
+                .andExpect(jsonPath("$.categoryProducts[0].description", is("omschrijving")))
+                .andExpect(jsonPath("$.categoryProducts[0].image", is("afbeelding")))
                 .andExpect(jsonPath("$.categoryProducts[0].articleNumber", is("123abc")))
                 .andExpect(jsonPath("$.categoryProducts[0].delivery", is(true)))
                 .andExpect(jsonPath("$.categoryProducts[0].material", is("Hout")))
@@ -201,7 +209,7 @@ public class FilledStoreProductControllerUnitTests {
     @Test
     public void whenAddProductToStore_thenReturnProductJson() throws Exception {
 
-        Product product4Store2 = new Product("IKEA Wilrijk", "Linmon chair", "Bureaustoel", "456abc", true, "Leer", "Spray", "Recycleerbaar", 500, 200.00, "130cm");
+        Product product4Store2 = new Product("IKEA Wilrijk", "Linmon chair", "Bureaustoel","omschrijving", "afbeelding", "456abc", true, "Leer", "Spray", "Recycleerbaar", 500, 200.00, "130cm");
 
         //Post product for Store 1 from product 1
         mockServer.expect(ExpectedCount.once(),
@@ -220,6 +228,8 @@ public class FilledStoreProductControllerUnitTests {
                 .andExpect(jsonPath("$.storeName", is("IKEA Wilrijk")))
                 .andExpect(jsonPath("$.name", is("Linmon chair")))
                 .andExpect(jsonPath("$.category", is("Bureaustoel")))
+                .andExpect(jsonPath("$.description", is("omschrijving")))
+                .andExpect(jsonPath("$.image", is("afbeelding")))
                 .andExpect(jsonPath("$.articleNumber", is("456abc")))
                 .andExpect(jsonPath("$.delivery", is(true)))
                 .andExpect(jsonPath("$.material", is("Leer")))
@@ -233,7 +243,7 @@ public class FilledStoreProductControllerUnitTests {
     @Test
     public void whenUpdateProductFromStore_thenReturnProductJson() throws Exception {
 
-        Product updatedProduct1Store1 = new Product("IKEA Hasselt", "Linmon chair", "Bureaustoel", "abc123", true, "Leer", "Spray", "Recycleerbaar", 400, 200.00, "130cm");
+        Product updatedProduct1Store1 = new Product("IKEA Hasselt", "Linmon chair", "Bureaustoel", "omschrijving", "afbeelding","abc123", true, "Leer", "Spray", "Recycleerbaar", 400, 200.00, "130cm");
 
         //Update product for Store 1 from product 1
         mockServer.expect(ExpectedCount.once(),
@@ -253,6 +263,8 @@ public class FilledStoreProductControllerUnitTests {
                 .andExpect(jsonPath("$.storeName", is("IKEA Hasselt")))
                 .andExpect(jsonPath("$.name", is("Linmon chair")))
                 .andExpect(jsonPath("$.category", is("Bureaustoel")))
+                .andExpect(jsonPath("$.description", is("omschrijving")))
+                .andExpect(jsonPath("$.image", is("afbeelding")))
                 .andExpect(jsonPath("$.articleNumber", is("abc123")))
                 .andExpect(jsonPath("$.delivery", is(true)))
                 .andExpect(jsonPath("$.material", is("Leer")))

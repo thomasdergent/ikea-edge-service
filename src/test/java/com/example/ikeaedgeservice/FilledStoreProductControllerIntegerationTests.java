@@ -61,8 +61,8 @@ public class FilledStoreProductControllerIntegerationTests {
     private Store store1 = new Store("IKEA dfdf", "Limburg", "Hasselt", "teststraat", 1);
     private Store store2 = new Store("IKEA Wilrijk", "Antwerpen", "Wilrijk", "teststraat", 2);
 
-    private Product product1 = new Product("IKEA Hasselt", "Linmon chair", "Bureaustoel", "abc123", true, "Leer", "Spray", "Recycleerbaar", 500, 200.00, "130cm");
-    private Product product2 = new Product("IKEA Hasselt", "Linmon desk", "Bureau", "abc456", true, "Hout", "Vochtbestendig", "Recycleerbaar", 600, 75.00, "140cmx80cm");
+    private Product product1 = new Product("IKEA Hasselt", "Linmon chair", "Bureaustoel","omschrijving", "afbeelding", "abc123", true, "Leer", "Spray", "Recycleerbaar", 500, 200.00, "130cm");
+    private Product product2 = new Product("IKEA Hasselt", "Linmon desk", "Bureau","omschrijving", "afbeelding", "abc456", true, "Hout", "Vochtbestendig", "Recycleerbaar", 600, 75.00, "140cmx80cm");
 
     public void givenReview_whenGetReviewByUserIdAndISBN_thenReturnJsonReview() throws Exception {
 
@@ -81,7 +81,7 @@ public class FilledStoreProductControllerIntegerationTests {
     @PostMapping("/product")
     public Product addProduct(@RequestBody Product product) {
 
-         Product product1 = new Product("IKEA Hasselt", "Linmon chair", "Bureaustoel", "abc123", true, "Leer", "Spray", "Recycleerbaar", 500, 200.00, "130cm");
+         Product product1 = new Product("IKEA Hasselt", "Linmon chair", "Bureaustoel", "omschrijving", "afbeelding", "abc123", true, "Leer", "Spray", "Recycleerbaar", 500, 200.00, "130cm");
 
         return restTemplate.postForObject("http://" + productServiceBaseUrl + "/product",
                 product1, Product.class);

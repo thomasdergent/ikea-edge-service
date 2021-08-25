@@ -4,6 +4,8 @@ public class CategoryProduct {
 
     private String name;
     private String category;
+    private String description;
+    private String image;
     private String articleNumber;
     private Boolean delivery;
     private String material;
@@ -13,9 +15,11 @@ public class CategoryProduct {
     private double price;
     private String size;
 
-    public CategoryProduct(String name, String category, String articleNumber, Boolean delivery, String material, String maintenance, String environment, int stock, double price, String size) {
+    public CategoryProduct(String name, String category, String description, String image, String articleNumber, Boolean delivery, String material, String maintenance, String environment, int stock, double price, String size) {
         this.name = name;
         this.category = category;
+        this.description = description;
+        this.image = image;
         this.articleNumber = articleNumber;
         this.delivery = delivery;
         this.material = material;
@@ -32,6 +36,13 @@ public class CategoryProduct {
 
     public String getCategory(){
         return category;
+    }
+    public String getDescription(){
+        return description;
+    }
+
+    public String getImage(){
+        return image;
     }
 
     public String getArticleNumber(){
