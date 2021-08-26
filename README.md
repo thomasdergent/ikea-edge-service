@@ -17,7 +17,7 @@ Hier vind je de links naar alle microservices:
 
 ## Link naar front-end
 Hier vind je de link naar de front-end:
-- [front-end](https://github.com/thomasdergent/store-service)
+- [front-end](https://github.com/thomasdergent/ikea-front-end)
 
 ## Diagram
 Hier vind je de diagram van de volledige werking van de microservices architectuur:
