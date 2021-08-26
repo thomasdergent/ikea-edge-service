@@ -8,7 +8,7 @@
   * [Swagger UI](#swagger-ui)
 
 ## Over het project
-Welkom op de infopagina van mijn Java Advanced Topics project. Dit project gaat over de Ikea-winkels in België met informatie over hun bijhorende producten. De back-end van deze omgeving is opgezet met de store-service geconnecteerd met PostgreSQL, products-service geconnecteerd met MongoDB en de ikea-edge-service. De services sturen de gegevens van de database naar de front-end gemaakt in Angular. Links naar alle repositories vind je hier onder.
+Welkom op de infopagina van mijn Java Advanced Topics project. Dit project gaat over de Ikea-winkels in België met informatie over hun bijhorende producten. De back-end van deze omgeving is opgezet met de products-service geconnecteerd met PostgreSQL, store-service geconnecteerd met MongoDB en de ikea-edge-service. De services sturen de gegevens van de database naar de front-end gemaakt in Angular. Links naar alle repositories vind je hier onder.
 
 ## Links naar microservices
 Hier vind je de links naar alle microservices:
