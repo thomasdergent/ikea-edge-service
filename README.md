@@ -45,7 +45,7 @@ Hier vind je een overzicht van alle endpoints aanwezig in de ikea-edge-service:
 
 - POST /product
 
-![post](https://user-images.githubusercontent.com/73995291/129959352-b3f54c06-6315-4bdc-9833-6ee68cbcd7a1.jpg)
+![Add store](https://user-images.githubusercontent.com/73995291/130997738-6a2c61ef-e848-4081-b92a-ff2237c020ed.png)
 
 - PUT /store/{storeName}/article/{articleNumber}
 
