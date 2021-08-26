@@ -27,31 +27,42 @@ Hier vind je de diagram van de volledige werking van de microservices architectu
 ## Swagger UI
 Hier vind je een overzicht van alle endpoints aanwezig in de ikea-edge-service:
 
-- GET /store/{storeName}/article/{articleNumber}
+- GET /product/{articleNumber}
 
-![getproductbystorenameandarticlenumber](https://user-images.githubusercontent.com/73995291/129954892-00546b73-2206-4338-a996-f65a7303279b.jpg)
+![get product by articlenumber](https://user-images.githubusercontent.com/73995291/130999043-c169db71-0be5-448c-b761-1a5bb63298bd.png)
 
-- GET /products/store/{storeName}
+- GET /products
 
-![getproductsbystorename](https://user-images.githubusercontent.com/73995291/129954970-bbce3217-350a-492f-8c25-6c41bc235b2b.jpg)
+![get all products](https://user-images.githubusercontent.com/73995291/130999135-004e26bc-f2e6-4b83-bd40-93c98d198f09.png)
 
-- GET /store/{storeName}/category/{category}
+- GET /products/{category}
 
-![getproductbystorenameandcategory](https://user-images.githubusercontent.com/73995291/129959208-6d09994d-571f-4f1a-85fd-a9596b5afa36.jpg)
+![get products by category](https://user-images.githubusercontent.com/73995291/130999240-57399cfc-b549-461a-a35f-be4d5ad1fe15.png)
 
-- GET /stores
+- GET /product/{articleNumber}/store/{storeName}
 
-![getstores](https://user-images.githubusercontent.com/73995291/129959245-deae2209-1d3d-49c1-857e-baf17c1addeb.jpg)
+![get store by articlenumber and storename](https://user-images.githubusercontent.com/73995291/130999321-f18caf67-3817-492c-80d4-5126b3f7840b.png)
 
 - POST /product
 
-![Add store](https://user-images.githubusercontent.com/73995291/130997738-6a2c61ef-e848-4081-b92a-ff2237c020ed.png)
+![Add prodct](https://user-images.githubusercontent.com/73995291/130999379-08c1b212-3b91-48a4-904d-06182b2598c0.png)
 
-- PUT /store/{storeName}/article/{articleNumber}
+- PUT /product/{articleNumber}
 
-![put](https://user-images.githubusercontent.com/73995291/129959270-f0e2680b-4304-486b-a37d-009ccf02df7e.jpg)
+![update product](https://user-images.githubusercontent.com/73995291/130999452-79e2a050-9b15-4abd-907c-00707e285b9a.png)
 
-- DELETE /store/{storeName}/article/{articleNumber}
+- DELETE /product/{articleNumber}
 
-![delete](https://user-images.githubusercontent.com/73995291/129958871-dee71fc7-4074-4ea5-8325-3c4b8f751fc2.jpg)
+![delete product](https://user-images.githubusercontent.com/73995291/130999492-3a4b5c68-8dda-4c8a-9f47-066c28e72d81.png)
 
+- POST /store
+
+![Add store](https://user-images.githubusercontent.com/73995291/130999575-a51ae4b2-ebb1-484c-9b7f-f51a1ff2616e.png)
+
+- PUT /product/{articleNumber}/store/{storeName}
+
+![update store](https://user-images.githubusercontent.com/73995291/130999644-3d9c83aa-92fa-4964-8270-dce8f43e9852.png)
+
+- DELETE /product/{articleNumber}/store/{storeName}
+
+![delete store](https://user-images.githubusercontent.com/73995291/130999673-c1b5da34-88cc-4625-bfb1-01ce29516f42.png)
