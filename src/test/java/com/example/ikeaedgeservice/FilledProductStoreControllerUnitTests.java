@@ -55,7 +55,6 @@ public class FilledProductStoreControllerUnitTests {
     Store store2 = new Store("IKEA Wilrijk", "unitTest123", 200);
     Store store3 = new Store("IKEA Hasselt", "unitTest456", 300);
 
-    //private List<Product> allProductsForStoreCategoryBureau = Arrays.asList(store1);
     private List<Product> allProducts = Arrays.asList(product1, product2);
     private List<Product> allProductsByCategoryBureaustoel = Arrays.asList(product1);
     private List<Store> allStoresProduct1 = Arrays.asList(store1, store2);
@@ -68,7 +67,7 @@ public class FilledProductStoreControllerUnitTests {
     }
 
     @Test
-    public void whenGetProductByArticleNumber_thenReturnFilledStoreProductJson() throws Exception {
+    public void whenGetProductByArticleNumber_thenReturnFilledProductStoreJson() throws Exception {
 
         //Get Product 1 info
         mockServer.expect(ExpectedCount.once(),
@@ -79,7 +78,7 @@ public class FilledProductStoreControllerUnitTests {
                         .body(mapper.writeValueAsString(product1))
                 );
 
-        // GET all Store for Store 1
+        // GET all Store for Product 1
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + storeServiceBaseUrl + "/stores/product/unitTest123")))
                 .andExpect(method(HttpMethod.GET))
@@ -109,7 +108,7 @@ public class FilledProductStoreControllerUnitTests {
     }
 
     @Test
-    public void whenGetProductsByStoreName_thenReturnFilledStoreProductsJson() throws Exception {
+    public void whenGetProducts_thenReturnFilledProductStoresJson() throws Exception {
 
         //Get Product 1 info
         mockServer.expect(ExpectedCount.once(),
@@ -120,7 +119,7 @@ public class FilledProductStoreControllerUnitTests {
                         .body(mapper.writeValueAsString(allProducts))
                 );
 
-        // GET all Store for Store 1
+        // GET all Store for Product 1
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + storeServiceBaseUrl + "/stores/product/unitTest123")))
                 .andExpect(method(HttpMethod.GET))
@@ -129,7 +128,7 @@ public class FilledProductStoreControllerUnitTests {
                         .body(mapper.writeValueAsString(allStoresProduct1))
                 );
 
-        // GET all Store for Store 2
+        // GET all Store for Product 2
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + storeServiceBaseUrl + "/stores/product/unitTest456")))
                 .andExpect(method(HttpMethod.GET))
@@ -172,7 +171,7 @@ public class FilledProductStoreControllerUnitTests {
     }
 
     @Test
-    public void whenGetProductsByStoreNameAndCategory_thenReturnFilledStoreProductsJson() throws Exception {
+    public void whenGetProductsByCategory_thenReturnFilledProductStoresJson() throws Exception {
 
         //Get Products by category bureaustoel info
         mockServer.expect(ExpectedCount.once(),
@@ -183,7 +182,7 @@ public class FilledProductStoreControllerUnitTests {
                         .body(mapper.writeValueAsString(allProductsByCategoryBureaustoel))
                 );
 
-        // GET all Store for Store 1
+        // GET Products by category
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + storeServiceBaseUrl + "/stores/product/unitTest123")))
                 .andExpect(method(HttpMethod.GET))
@@ -212,13 +211,32 @@ public class FilledProductStoreControllerUnitTests {
                 .andExpect(jsonPath("$[0].storeStocks[1].stock", is(200)));
     }
 
-//
     @Test
-    public void whenAddProductToStore_thenReturnProductJson() throws Exception {
+    public void whenGetStoreByArticleNumberAndStoreName_thenReturnStoreJson() throws Exception {
+
+        //Get Store
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + storeServiceBaseUrl + "/product/unitTest123/store/IKEA%20Hasselt")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(store1))
+                );
+
+        mockMvc.perform(get("/product/{articleNumber}/store/{storeName}", "unitTest123", "IKEA Hasselt"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.storeName", is("IKEA Hasselt")))
+                .andExpect(jsonPath("$.articleNumber", is("unitTest123")))
+                .andExpect(jsonPath("$.stock", is(100)));
+    }
+
+    @Test
+    public void whenAddProduct_thenReturnProductJson() throws Exception {
 
         Product productToAdd = new Product("Alexa chair", "Bureaustoel", "omschrijving", "afbeelding", "123unitTest", true, "Leer", "Spray", "Recycleerbaar", 500.00, "130cm");
 
-        //Post product for Store 1 from product 1
+        //Post product
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + productServiceBaseUrl + "/product")))
                 .andExpect(method(HttpMethod.POST))
@@ -246,11 +264,11 @@ public class FilledProductStoreControllerUnitTests {
     }
 
     @Test
-    public void whenUpdateProductFromStore_thenReturnProductJson() throws Exception {
+    public void whenUpdateProduct_thenReturnProductJson() throws Exception {
 
         Product updatedProduct1 = new Product("Linmon chair", "Bureaustoel", "omschrijving", "afbeelding", "unitTest123", true, "Leer", "Spray", "Recycleerbaar", 800.00, "130cm");
 
-        //Update product for Store 1 from product 1
+        //Update product
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + productServiceBaseUrl + "/product/" + product1.getArticleNumber())))
                 .andExpect(method(HttpMethod.PUT))
@@ -279,9 +297,9 @@ public class FilledProductStoreControllerUnitTests {
     }
 
     @Test
-    public void whenDeleteProductFromStore_thenStatusOK() throws Exception {
+    public void whenDeleteProduct_thenStatusOK() throws Exception {
 
-        //Delete product for Store 1 from product 1
+        //Delete product
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + productServiceBaseUrl + "/product/" + product1.getArticleNumber())))
                 .andExpect(method(HttpMethod.DELETE))
@@ -294,9 +312,9 @@ public class FilledProductStoreControllerUnitTests {
     }
 
     @Test
-    public void whenDeleteProductFromStore_thenStatusNotFound() throws Exception {
+    public void whenDeleteProduct_thenStatusNotFound() throws Exception {
 
-        //Delete product for Store 1 from badrequest
+        //Delete product
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + productServiceBaseUrl + "/product/badArticleNumber")))
                 .andExpect(method(HttpMethod.DELETE))
@@ -308,14 +326,12 @@ public class FilledProductStoreControllerUnitTests {
                 .andExpect(status().isBadRequest());
     }
 
-
-
     @Test
-    public void whenAddStore_thenReturnProductJson() throws Exception {
+    public void whenAddStore_thenReturnStoreJson() throws Exception {
 
         Store store1 = new Store("IKEA Wilrijk", "unitTest456", 100);
 
-        //Post product for Store 1 from product 1
+        //Post store
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + storeServiceBaseUrl + "/store")))
                 .andExpect(method(HttpMethod.POST))
@@ -335,11 +351,11 @@ public class FilledProductStoreControllerUnitTests {
     }
 
     @Test
-    public void whenUpdateStore_thenReturnProductJson() throws Exception {
+    public void whenUpdateStore_thenReturnStoreJson() throws Exception {
 
         Store updatedStore1 = new Store("IKEA Hasselt", "unitTest456", 500);
 
-        //Update product for Store 1 from product 1
+        //Update store
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + storeServiceBaseUrl + "/product/" + store3.getArticleNumber() + "/store/IKEA%20Hasselt")))
                 .andExpect(method(HttpMethod.PUT))
@@ -362,7 +378,7 @@ public class FilledProductStoreControllerUnitTests {
     @Test
     public void whenDeleteStore_thenStatusOK() throws Exception {
 
-        //Delete product for Store 1 from product 1
+        //Delete store
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + storeServiceBaseUrl + "/product/" + store1.getArticleNumber() + "/store/IKEA%20Hasselt")))
                 .andExpect(method(HttpMethod.DELETE))
@@ -377,7 +393,7 @@ public class FilledProductStoreControllerUnitTests {
     @Test
     public void whenDeleteStore_thenStatusNotFound() throws Exception {
 
-        //Delete product for Store 1 from badrequest
+        //Delete store
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + storeServiceBaseUrl + "/product/" + "badArticleNumber" + "/store/" + "badStoreName")))
                 .andExpect(method(HttpMethod.DELETE))
@@ -388,38 +404,4 @@ public class FilledProductStoreControllerUnitTests {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
-
-
-
-
-
-
-
-//
-//    @Test
-//    public void whenGetStores_thenReturnStoresJson() throws Exception {
-//
-//        //Get all stores
-//        mockServer.expect(ExpectedCount.once(),
-//                requestTo(new URI("http://" + storeServiceBaseUrl + "/stores")))
-//                .andExpect(method(HttpMethod.GET))
-//                .andRespond(withStatus(HttpStatus.OK)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .body(mapper.writeValueAsString(allStores))
-//                );
-//
-//        mockMvc.perform(get("/stores"))
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$[0].storeName", is("IKEA Hasselt")))
-//                .andExpect(jsonPath("$[0].province", is("Limburg")))
-//                .andExpect(jsonPath("$[0].city", is("Hasselt")))
-//                .andExpect(jsonPath("$[0].street", is("teststraat")))
-//                .andExpect(jsonPath("$[0].number", is(1)))
-//                .andExpect(jsonPath("$[1].storeName", is("IKEA Wilrijk")))
-//                .andExpect(jsonPath("$[1].province", is("Antwerpen")))
-//                .andExpect(jsonPath("$[1].city", is("Wilrijk")))
-//                .andExpect(jsonPath("$[1].street", is("teststraat")))
-//                .andExpect(jsonPath("$[1].number", is(2)));
-//    }
 }

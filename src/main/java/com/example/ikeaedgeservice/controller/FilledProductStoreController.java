@@ -44,31 +44,6 @@ public class FilledProductStoreController {
         return new FilledProductStore(product, responseEntityStores.getBody());
     }
 
-//    //Get all products from category
-//    @GetMapping("/category/{category}")
-//    public List<FilledStoreProduct> getMeubelsByCategory(@PathVariable String category) {
-//
-//        List<FilledStoreProduct> returnList = new ArrayList();
-//
-//        ResponseEntity<List<Product>> responseEntityReviews =
-//                restTemplate.exchange("http://" + productServiceBaseUrl + "/products/category/{category}",
-//                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Product>>() {
-//                        }, category);
-//
-//        List<Product> products = responseEntityReviews.getBody();
-//
-//        for (Product product :
-//                products) {
-//            Store store =
-//                    restTemplate.getForObject("http://" + storeServiceBaseUrl + "/store/{storeName}",
-//                            Store.class, product.getStoreName());
-//
-//            returnList.add(new FilledStoreProduct(store, product));
-//        }
-//
-//        return returnList;
-//    }
-
     //Get specific product from specific store
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/products")
@@ -111,43 +86,16 @@ public class FilledProductStoreController {
         return returnList;
     }
 
+    //Get store from specific product
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/product/{articleNumber}/store/{storeName}")
+    public Store getStoreByArticleNumberAndStoreName(@PathVariable String articleNumber, @PathVariable String storeName) {
 
-//    //Get all products from specific store
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    @GetMapping("/products/store/{storeName}")
-//    public FilledProductStore getProductsByStoreName(@PathVariable String storeName) {
-//        Store store = restTemplate.getForObject("http://" + storeServiceBaseUrl + "/store/{storeName}", Store.class, storeName);
-//
-//        ResponseEntity<List<Product>> responseEntityProducts = restTemplate.exchange("http://" + productServiceBaseUrl + "/products/{storeName}", HttpMethod.GET, null, new ParameterizedTypeReference<List<Product>>() {
-//        }, storeName);
-//
-//        return new FilledProductStore(store, responseEntityProducts.getBody());
-//    }
-//
-//    //Get all products from a specific category for a specific store
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    @GetMapping("/store/{storeName}/category/{category}")
-//    public FilledProductStore getProductsByStoreNameAndCategory(@PathVariable String storeName, @PathVariable String category) {
-//        Store store = restTemplate.getForObject("http://" + storeServiceBaseUrl + "/store/{storeName}", Store.class, storeName);
-//
-//        ResponseEntity<List<Product>> responseEntityProducts = restTemplate.exchange("http://" + productServiceBaseUrl + "/store/" + storeName + "/category/{category}", HttpMethod.GET, null, new ParameterizedTypeReference<List<Product>>() {
-//        }, category);
-//
-//        return new FilledProductStore(store, responseEntityProducts.getBody());
-//    }
 
-//    @PostMapping("/product")
-//    public FilledStoreProduct addProduct(@RequestParam String storeName, @RequestParam String name, @RequestParam String category, @RequestParam String articleNumber, @RequestParam boolean delivery, @RequestParam String material, @RequestParam String maintenance, @RequestParam String environment, @RequestParam int stock, @RequestParam double price, @RequestParam String size) {
-//
-//        Product product = restTemplate.postForObject("http://" + productServiceBaseUrl + "/product", new Product(storeName, name, category, articleNumber, delivery, material, maintenance, environment, stock, price, size), Product.class);
-//
-//        Store store =
-//                restTemplate.getForObject("http://" + storeServiceBaseUrl + "/store/{storeName}",
-//                        Store.class, storeName)
-//
-//
-//        return new FilledStoreProduct(store, product);
-//    }
+        Store store = restTemplate.getForObject("http://" + storeServiceBaseUrl + "/product/{articleNumber}/store/{storeName}", Store.class, articleNumber, storeName);
+
+        return store;
+    }
 
     //Post product
     @PostMapping("/product")
@@ -170,49 +118,6 @@ public class FilledProductStoreController {
         return responseEntityProduct.getBody();
     }
 
-//    //werkt basic
-//    @PutMapping("/products")
-//    public Product update(@RequestBody Product updatedProduct) {
-//
-//        ResponseEntity<Product> responseEntityReview =
-//                restTemplate.exchange("http://" + productServiceBaseUrl + "/product",
-//                        HttpMethod.PUT, new HttpEntity<>(updatedProduct), Product.class);
-//
-//        return responseEntityReview.getBody();
-//    }
-
-
-//    //werkt maar is tering lang
-//    @PutMapping("/product")
-//    public FilledStoreProduct updateProduct(@RequestParam String storeName, @RequestParam String name, @RequestParam String category, @RequestParam String articleNumber, @RequestParam boolean delivery, @RequestParam String material, @RequestParam String maintenance, @RequestParam String environment, @RequestParam int stock, @RequestParam double price, @RequestParam String size) {
-//
-//        Product product =
-//                restTemplate.getForObject("http://" + productServiceBaseUrl + "/product/store/" + storeName + "/article/" + articleNumber,
-//                        Product.class);
-//        product.setName(name);
-//        product.setCategory((category));
-//        product.setArticleNumber(articleNumber);
-//        product.setDelivery(delivery);
-//        product.setMaterial(material);
-//        product.setMaintenance(maintenance);
-//        product.setEnvironment(environment);
-//        product.setStock(stock);
-//        product.setPrice(price);
-//        product.setSize(size);
-//
-//        ResponseEntity<Product> responseEntityReview =
-//                restTemplate.exchange("http://" + productServiceBaseUrl + "/product",
-//                        HttpMethod.PUT, new HttpEntity<>(product), Product.class);
-//
-//        Product retrievedProduct = responseEntityReview.getBody();
-//
-//        Store store =
-//                restTemplate.getForObject("http://" + storeServiceBaseUrl + "/store/{storeName}",
-//                        Store.class, storeName);
-//
-//        return new FilledStoreProduct(store, retrievedProduct);
-//    }
-
     //Delete specific product from specific store
     @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/product/{articleNumber}")
@@ -229,18 +134,7 @@ public class FilledProductStoreController {
         }
     }
 
-//    //Get all stores
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    @GetMapping("/stores")
-//    public List<Store> getStores() {
-//
-//        ResponseEntity<List<Store>> responseEntityProducts = restTemplate.exchange("http://" + storeServiceBaseUrl + "/stores", HttpMethod.GET, null, new ParameterizedTypeReference<List<Store>>() {
-//        });
-//
-//        return responseEntityProducts.getBody();
-//    }
-
-    //Post product
+    //Post store
     @PostMapping("/store")
     @CrossOrigin(origins = "http://localhost:4200")
     public Store addStore(@RequestBody Store store) {
@@ -249,7 +143,7 @@ public class FilledProductStoreController {
                 store, Store.class);
     }
 
-    //Update specific product from specific store
+    //Update specific store
     @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/product/{articleNumber}/store/{storeName}")
     public Store updateStore(@PathVariable String articleNumber, @PathVariable String storeName, @RequestBody Store updatedStore) {
@@ -261,7 +155,7 @@ public class FilledProductStoreController {
         return responseEntityStore.getBody();
     }
 
-    //Delete specific product from specific store
+    //Delete specific store
     @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/product/{articleNumber}/store/{storeName}")
     public ResponseEntity deleteStore(@PathVariable String articleNumber, @PathVariable String storeName) {
