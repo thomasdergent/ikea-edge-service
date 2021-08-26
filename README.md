@@ -12,8 +12,8 @@ Welkom op de infopagina van mijn Java Advanced Topics project. Dit project gaat 
 
 ## Links naar microservices
 Hier vind je de links naar alle microservices:
-- [user-service](https://github.com/thomasdergent/store-service)
 - [products-service](https://github.com/thomasdergent/products-service)
+- [store-service](https://github.com/thomasdergent/store-service)
 
 ## Link naar front-end
 Hier vind je de link naar de front-end:
