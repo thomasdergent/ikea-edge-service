@@ -22,7 +22,7 @@ Hier vind je de link naar de front-end:
 ## Diagram
 Hier vind je de diagram van de volledige werking van de microservices architectuur:
 
-![schema](https://user-images.githubusercontent.com/73995291/129954321-f1e4bf83-6ed5-4535-ad2e-0e148966f35f.jpg)
+![diagram](https://user-images.githubusercontent.com/73995291/131002021-cf6e3122-0f93-4b5e-a3c8-173fa53baf42.png)
 
 ## Swagger UI
 Hier vind je een overzicht van alle endpoints aanwezig in de ikea-edge-service:
