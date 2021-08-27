@@ -16,9 +16,9 @@ Hier vind je de links naar alle microservices:
 - [store-service](https://github.com/thomasdergent/store-service)
 
 Docker commands
-- docker run -d --name ikea-products-service -p 8051:8051 -e POSTGRES_HOST=host.docker.internal -e POSGTRES_HOST=host.docker.internal thomasdergent/products-service:latest
+- docker run -d --name ikea-products-service -p 8051:8051 -e POSGTRES_HOST=host.docker.internal thomasdergent/products-service:latest
 - docker run -d --name ikea-store-service -p 8052:8052 -e MONGODB_HOST=host.docker.internal thomasdergent/store-service:latest
-- docker run -d --name ikea-edge-service -p 8050:8050 -e STORE_SERVICE_BASEURL=host.docker.internal=host.docker.internal:8052 -e PRODUCT_SERVICE_BASEURL=host.docker.internal:8051 thomasdergent/ikea-edge-service:latest
+- docker run -d --name ikea-edge-service -p 8050:8050 -e STORE_SERVICE_BASEURL=host.docker.internal:8052 -e PRODUCT_SERVICE_BASEURL=host.docker.internal:8051 thomasdergent/ikea-edge-service:latest
 
 ## Link naar front-end
 Hier vind je de link naar de front-end:
